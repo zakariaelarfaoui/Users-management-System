@@ -23,7 +23,7 @@ departmentController.getOne = async (req, res) => {
   }
 }
 
-departmentController.deleteDepartment = async (req, res) => {
+departmentController.delete = async (req, res) => {
   const id = req.params.id;
   try {
     const department = await Department.findOne({ where: { id } });
