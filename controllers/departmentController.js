@@ -1,6 +1,8 @@
 const { sequelize, Department } = require("../models");
 
-async function getAll(req, res) {
+const departmentController = {};
+
+departmentController.getAll = async (req, res) => {
   try {
     const departments = await Department.findAll();
     return res.json(departments);
@@ -8,9 +10,9 @@ async function getAll(req, res) {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
-}
+};
 
-async function getOne(req, res) {
+departmentController.getOne = async (req, res) => {
   const id = req.params.id;
   try {
     const department = await Department.findOne({ where: { id } });
@@ -21,37 +23,37 @@ async function getOne(req, res) {
   }
 }
 
-async function deleteDepartment(req, res) {
+departmentController.deleteDepartment = async (req, res) => {
   const id = req.params.id;
   try {
     const department = await Department.findOne({ where: { id } });
     await department.destroy();
-    return res.json({message: 'row deleted successfully'});
+    return res.json({ message: "row deleted successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
 }
 
-async function update(req, res) {
+departmentController.update = async (req, res) => {
   const id = req.params.id;
-  const {name, description} = req.body;
+  const { name, description } = req.body;
   try {
     const department = await Department.findOne({ where: { id } });
 
     department.name = name;
     department.description = description;
 
-    await department.save()
+    await department.save();
 
-    return res.json({message: 'row updated successfully'});
+    return res.json({ message: "row updated successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
 }
 
-async function create(req, res) {
+departmentController.create = async (req, res) => {
   const { name, description } = req.body;
   try {
     const department = await Department.create({ name, description });
@@ -63,9 +65,5 @@ async function create(req, res) {
 }
 
 module.exports = {
-    getAll,
-    getOne,
-    deleteDepartment,
-    create,
-    update
-}
+  departmentController,
+};
