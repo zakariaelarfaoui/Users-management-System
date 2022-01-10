@@ -37,12 +37,31 @@ async function deleteDepartment(req, res) {
   }
 }
 
+async function update(req, res) {
+  const id = req.params.id;
+  const {name, description} = req.body;
+  try {
+    const department = await Department.findOne({ where: { id } });
+
+    department.name = name;
+    department.description = description;
+
+    await department.save()
+
+    return res.json({message: 'row updated successfully'});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
 
 async function create(req, res) {
   const { name, description } = req.body;
   try {
     const department = await Department.create({ name, description });
-    return res.json(department);
+    return res.json({ message: "row inserted successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -53,6 +72,7 @@ app.get("/departments", getAll);
 app.get("/department/:id", getOne);
 app.post("/departments", create);
 app.delete("/department/:id", deleteDepartment);
+app.put("/department/:id", update);
 
 app.listen({ port: 8000 }, () => {
   console.log("server running on http://localhost:8000");
