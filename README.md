@@ -7,8 +7,8 @@
 ### Pour créer cette application, il faut respecter les éléments suivants:
 
     Un Département peut avoir un ou plusieurs utilisateurs,
-    Utilisateur(idUser, nomComplet,email, password)
-    Departement(idDepartement, nomDepartement,description,idUser).
+    Utilisateur(idUser, nomComplet,email, password,idDepartement)
+    Departement(idDepartement, nomDepartement,description).
 
 ​
 
@@ -42,5 +42,3 @@ Technologies:
     Express
     SQL
     ORM, Sequelize, Templates, Engins(ejs,hbs,...)
-
-
