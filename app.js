@@ -2,19 +2,13 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const {
-  getAll,
-  getOne,
-  deleteDepartment,
-  create,
-  update,
-} = require("./controllers/departmentController");
+const { departmentController } = require("./controllers/departmentController");
 
-app.get("/departments", getAll);
-app.get("/department/:id", getOne);
-app.post("/departments", create);
-app.delete("/department/:id", deleteDepartment);
-app.put("/department/:id", update);
+app.get("/departments", departmentController.getAll);
+app.get("/department/:id", departmentController.getOne);
+app.post("/departments", departmentController.create);
+app.delete("/department/:id", departmentController.deleteDepartment);
+app.put("/department/:id", departmentController.update);
 
 app.listen({ port: 8000 }, () => {
   console.log("server running on http://localhost:8000");
