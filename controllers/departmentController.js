@@ -1,7 +1,3 @@
-const express = require("express");
-const app = express();
-app.use(express.json());
-
 const { sequelize, Department } = require("../models");
 
 async function getAll(req, res) {
@@ -55,8 +51,6 @@ async function update(req, res) {
   }
 }
 
-
-
 async function create(req, res) {
   const { name, description } = req.body;
   try {
@@ -68,12 +62,10 @@ async function create(req, res) {
   }
 }
 
-app.get("/departments", getAll);
-app.get("/department/:id", getOne);
-app.post("/departments", create);
-app.delete("/department/:id", deleteDepartment);
-app.put("/department/:id", update);
-
-app.listen({ port: 8000 }, () => {
-  console.log("server running on http://localhost:8000");
-});
+module.exports = {
+    getAll,
+    getOne,
+    deleteDepartment,
+    create,
+    update
+}
