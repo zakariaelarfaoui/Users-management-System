@@ -7,7 +7,7 @@ const { departmentController } = require("./controllers/departmentController");
 app.get("/departments", departmentController.getAll);
 app.get("/department/:id", departmentController.getOne);
 app.post("/departments", departmentController.create);
-app.delete("/department/:id", departmentController.deleteDepartment);
+app.delete("/department/:id", departmentController.delete);
 app.put("/department/:id", departmentController.update);
 
 app.listen({ port: 8000 }, () => {
