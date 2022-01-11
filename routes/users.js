@@ -10,4 +10,4 @@ userRoutes.delete("/user/:id", usersController.delete);
 userRoutes.put("/user/:id", usersController.update);
 userRoutes.get("/departmentUsers/:id", usersController.departmentUsers);
 
-module.exports = { userRoutes };
+module.exports = userRoutes;

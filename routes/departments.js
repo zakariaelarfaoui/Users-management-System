@@ -9,4 +9,4 @@ departmentRoutes.post("/departments", departmentController.create);
 departmentRoutes.put("/department/:id", departmentController.update);
 departmentRoutes.delete("/department/:id", departmentController.delete);
 
-module.exports = { departmentRoutes };
+module.exports =  departmentRoutes ;
