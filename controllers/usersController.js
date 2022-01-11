@@ -24,7 +24,7 @@ usersController.create = async (req, res) => {
 usersController.getAll = async (req, res) => {
   try {
     const users = await User.findAll();
-    return res.json(users);
+    res.render("users/index", {users})
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -35,7 +35,7 @@ usersController.getOne = async (req, res) => {
   const id = req.params.id;
   try {
     const user = await User.findOne({ where: { id } });
-    return res.json(user);
+    res.render("users/user", { user });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });

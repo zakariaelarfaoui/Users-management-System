@@ -7,22 +7,20 @@
         <tr>
           <th scope="">#</th>
           <th scope="">Name</th>
-          <th scope="">Description</th>
-          <th scope="">Users</th>
+          <th scope="">Email</th>
           <th scope="">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <% departments.forEach(function(department) { %>
+        <% users.forEach(function(user) { %>
         <tr>
           <td>1</td>
           <td>
-            <a href="/department/<%= department.dataValues.id %>">
-              <%= department.dataValues.name %></a
-            >
+            <a href="/user/<%= user.dataValues.id %>">
+              <%= user.dataValues.name %>
+            </a>
           </td>
-          <td><%= department.dataValues.description %></td>
-          <td>22</td>
+          <td><%= user.dataValues.email %></td>
           <td>
             <i class="fas fa-edit"></i>
             <i class="fas fa-trash-alt"></i>
