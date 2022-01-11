@@ -2,13 +2,14 @@
 
 <main>
   <div class="container">
-    <table class="table">
-      <thead class="table-dark">
+    <table class="">
+      <thead class="">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Description</th>
-          <th scope="col">Users</th>
+          <th scope="">#</th>
+          <th scope="">Name</th>
+          <th scope="">Description</th>
+          <th scope="">Users</th>
+          <th scope="">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -18,6 +19,10 @@
           <td><%= department.dataValues.name %></td>
           <td><%= department.dataValues.description %></td>
           <td>22</td>
+          <td>
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash-alt"></i>
+          </td>
         </tr>
         <% }) %>
       </tbody>
