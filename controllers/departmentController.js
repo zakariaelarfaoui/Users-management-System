@@ -5,7 +5,7 @@ const departmentController = {};
 departmentController.getAll = async (req, res) => {
   try {
     const departments = await Department.findAll();
-    return res.json(departments);
+    res.render("departments/index", { departments });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -21,7 +21,7 @@ departmentController.getOne = async (req, res) => {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 departmentController.delete = async (req, res) => {
   const id = req.params.id;
@@ -33,7 +33,7 @@ departmentController.delete = async (req, res) => {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 departmentController.update = async (req, res) => {
   const id = req.params.id;
@@ -51,7 +51,7 @@ departmentController.update = async (req, res) => {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 departmentController.create = async (req, res) => {
   const { name, description } = req.body;
@@ -62,7 +62,7 @@ departmentController.create = async (req, res) => {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 module.exports = {
   departmentController,
