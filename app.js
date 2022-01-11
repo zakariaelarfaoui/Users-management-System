@@ -16,6 +16,7 @@ app.get("/user/:id", usersController.getOne);
 app.post("/users", usersController.create);
 app.delete("/user/:id", usersController.delete);
 app.put("/user/:id", usersController.update);
+app.get("/departmentUsers/:id", usersController.departmentUsers);
 
 app.listen({ port: 8000 }, () => {
   console.log("server running on http://localhost:8000");

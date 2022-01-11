@@ -1,9 +1,10 @@
 const { sequelize, Department, User } = require("../models");
+const user = require("../models/user");
 
 const usersController = {};
 
 usersController.create = async (req, res) => {
-  const { id, name, email, password } = req.body;
+  const { id, name, email, password, departmentId } = req.body;
   try {
     const department = await Department.findOne({ where: id });
     const user = await User.create({
@@ -19,7 +20,6 @@ usersController.create = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 usersController.getAll = async (req, res) => {
   try {
@@ -63,7 +63,7 @@ usersController.update = async (req, res) => {
     user.name = name;
     user.email = email;
     user.password = password;
-    user.departmentId = departmentId;;
+    user.departmentId = departmentId;
 
     await user.save();
 
@@ -74,4 +74,15 @@ usersController.update = async (req, res) => {
   }
 };
 
-module.exports = {usersController};
+usersController.departmentUsers = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const departmentUsers = await User.findAll({ where: { departmentId: id } });
+    return res.json({ departmentUsers });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { usersController };
