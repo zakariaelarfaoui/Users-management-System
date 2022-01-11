@@ -4,8 +4,10 @@ app.use(express.json());
 
 app.set("view engine", "ejs");
 
-const departmentRoutes = require("./routes/departments")
-const  userRoutes  = require("./routes/users");
+app.use(express.static(__dirname + "/public"));
+
+const departmentRoutes = require("./routes/departments");
+const userRoutes = require("./routes/users");
 
 app.use("/", userRoutes, departmentRoutes);
 
