@@ -5,7 +5,7 @@ const departmentController = {};
 departmentController.getAll = async (req, res) => {
   try {
     const departments = await Department.findAll();
-    return res.json(departments);
+    res.render("departments/index");
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
