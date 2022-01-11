@@ -16,7 +16,11 @@
         <% departments.forEach(function(department) { %>
         <tr>
           <td>1</td>
-          <td><%= department.dataValues.name %></td>
+          <td>
+            <a href="/department/<%= department.dataValues.id %>">
+              <%= department.dataValues.name %></a
+            >
+          </td>
           <td><%= department.dataValues.description %></td>
           <td>22</td>
           <td>
