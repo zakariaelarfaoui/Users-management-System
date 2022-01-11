@@ -16,7 +16,7 @@ departmentController.getOne = async (req, res) => {
   const id = req.params.id;
   try {
     const department = await Department.findOne({ where: { id } });
-    return res.json(department);
+    res.render('departments/department', { department})
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
