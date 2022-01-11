@@ -1,0 +1,28 @@
+<%- include('../layouts/header'); %>
+
+<main>
+  <div class="container">
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% departments.forEach(function(department) { %>
+        <tr>
+          <td>1</td>
+          <td><%= department.dataValues.name %></td>
+          <td><%= department.dataValues.description %></td>
+          <td>22</td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<%- include('../layouts/footer'); %>
