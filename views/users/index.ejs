@@ -1,0 +1,35 @@
+<%- include('../layouts/header'); %>
+
+<main>
+  <div class="container">
+    <table class="">
+      <thead class="">
+        <tr>
+          <th scope="">#</th>
+          <th scope="">Name</th>
+          <th scope="">Email</th>
+          <th scope="">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(user) { %>
+        <tr>
+          <td>1</td>
+          <td>
+            <a href="/user/<%= user.dataValues.id %>">
+              <%= user.dataValues.name %>
+            </a>
+          </td>
+          <td><%= user.dataValues.email %></td>
+          <td>
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash-alt"></i>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<%- include('../layouts/footer'); %>
