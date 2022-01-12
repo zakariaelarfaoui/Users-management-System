@@ -40,13 +40,10 @@ departmentController.update = async (req, res) => {
   const { name, description } = req.body;
   try {
     const department = await Department.findOne({ where: { id } });
-
     department.name = name;
     department.description = description;
-
     await department.save();
-
-    return res.json({ message: "row updated successfully" });
+    res.redirect("/departments");
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -54,14 +51,13 @@ departmentController.update = async (req, res) => {
 };
 
 departmentController.create = async (req, res) => {
-  const { name, description } = req.body;
-  try {
-    const department = await Department.create({ name, description });
-    res.redirect("departments")
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-  }
+  const department = await new Department(req.body)
+  department.save().then((result) => {
+    res.redirect("/departments").catch((error) => {
+      console.log(error);
+      res.status(500).json({ error: error.message });
+    });
+  })
 };
 
 module.exports = {
