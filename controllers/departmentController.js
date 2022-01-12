@@ -57,7 +57,7 @@ departmentController.create = async (req, res) => {
   const { name, description } = req.body;
   try {
     const department = await Department.create({ name, description });
-    return res.json({ message: "row inserted successfully" });
+    res.redirect("departments")
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
