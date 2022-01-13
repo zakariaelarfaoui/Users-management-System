@@ -1,37 +1,128 @@
 <%- include('../layouts/header'); %>
 
-<main>
-  <div class="container">
-    <table class="">
-      <thead class="">
-        <tr>
-          <th scope="">#</th>
-          <th scope="">Name</th>
-          <th scope="">Description</th>
-          <th scope="">Users</th>
-          <th scope="">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% departments.forEach(function(department) { %>
-        <tr>
-          <td>1</td>
-          <td>
-            <a href="/department/<%= department.dataValues.id %>">
-              <%= department.dataValues.name %></a
-            >
-          </td>
-          <td><%= department.dataValues.description %></td>
-          <td>22</td>
-          <td>
-            <i class="fas fa-edit"></i>
-            <i class="fas fa-trash-alt"></i>
-          </td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
-  </div>
-</main>
+  <main>
+    <div class="container">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary float-end mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="fas fa-plus"></i>
+        Add Department
+      </button>
 
-<%- include('../layouts/footer'); %>
+      <!-- Modal -->
+      <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addModalLabel">Add Department</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/departments" method="POST">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
+                    placeholder="Name" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                  <textarea class="form-control" name="description" id="exampleFormControlTextarea1"
+                    rows="3"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Add
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPDATE modal -->
+      <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateModalLabel">UPDATE Department</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/department" method="PUT">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" name="updated-name" class="form-control" id="updated-name" placeholder="Name" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                  <textarea class="form-control" name="updated-description" id="updated-description"
+                    rows="3"></textarea>
+                </div>
+                <input type="hidden" name="id" id="updated-id">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  UPDATE
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <table class="">
+        <thead class="">
+          <tr>
+            <th scope="">#</th>
+            <th scope="">Name</th>
+            <th scope="">Description</th>
+            <th scope="">Users</th>
+            <th scope="">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="departments">
+          <% let i=1; %>
+            <% departments.forEach(function(department) { %>
+              <tr>
+                <td>
+                  <%= i++ %>
+                </td>
+                <td>
+                  <%= department.name %>
+                </td>
+                <td>
+                  <%= department.description %>
+                </td>
+                <td>22</td>
+                <td>
+                  <a href="/department/<%= department.id %>">
+                  <button type="button" class="btn btn-outline-warning">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </a>
+                  <button id="edit-btn" class="btn btn-outline-primary mx-3" data-bs-toggle="modal"
+                    data-bs-target="#updateModal">
+                    <i class="fas fa-edit"></i>
+                    <input type="hidden" value="<%= department.id %>">
+                  </button>
+                  <form action="/department" method="delete" class="d-inline-block">
+                    <input type="hidden" name="id" value="<%= department.id %>">
+                    <button class="delete-btn btn btn-outline-danger" type="submit">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <%- include('../layouts/footer'); %>

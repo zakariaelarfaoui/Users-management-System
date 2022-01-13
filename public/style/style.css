@@ -40,7 +40,7 @@ table {
 
 th,
 td {
-  text-align: center;
+  text-align: center !important;
   padding: 8px;
 }
 
@@ -53,18 +53,12 @@ th {
   color: white;
 }
 
-footer {
+.copyright {
   position: fixed;
   bottom: 0;
   width: 100%;
 }
 
-.fa-trash-alt {
-  color: #f00;
-}
-.fa-edit{
-    color: #0d6efd;
-}
 a{
   text-decoration: none !important;
 }

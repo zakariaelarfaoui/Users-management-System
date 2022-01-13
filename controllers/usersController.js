@@ -1,45 +1,36 @@
-const { sequelize, Department, User } = require("../models");
-const user = require("../models/user");
+const { Department, User } = require("../models");
 
 const usersController = {};
 
 usersController.create = async (req, res) => {
-  const { id, name, email, password, departmentId } = req.body;
-  try {
-    const department = await Department.findOne({ where: id });
-    const user = await User.create({
-      name,
-      email,
-      password,
-      departmentId: department.id,
+  const user = await new User(req.body);
+  user.save().then((result) => {
+    res.redirect("/users").catch((error) => {
+      console.log(error);
+      res.status(500).json({ error: error.message });
     });
-    return res.json(user);
-    return res.json({ message: "row inserted successfully" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-  }
+  });
 };
 
 usersController.getAll = async (req, res) => {
-  try {
-    const users = await User.findAll();
-    res.render("users/index", {users})
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-  }
+  User.findAll()
+    .then((result) => {
+      res.render("users/index", { users: result });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 usersController.getOne = async (req, res) => {
   const id = req.params.id;
-  try {
-    const user = await User.findOne({ where: { id } });
-    res.render("users/user", { user });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-  }
+  User.findOne({ where: { id } })
+    .then((result) => {
+        res.render("users/user", { user: result });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 usersController.delete = async (req, res) => {
