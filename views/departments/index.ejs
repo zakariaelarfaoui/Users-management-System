@@ -42,6 +42,7 @@
         </div>
       </div>
 
+      <!-- UPDATE modal -->
       <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -53,14 +54,14 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
-                  <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
-                    placeholder="Name" />
+                  <input type="text" name="updated-name" class="form-control" id="updated-name" placeholder="Name" />
                 </div>
                 <div class="mb-3">
                   <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                  <textarea class="form-control" name="description" id="exampleFormControlTextarea1"
+                  <textarea class="form-control" name="updated-description" id="updated-description"
                     rows="3"></textarea>
                 </div>
+                <input type="hidden" name="id" id="updated-id">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -86,28 +87,39 @@
           </tr>
         </thead>
         <tbody id="departments">
-          <% departments.forEach(function(department) { %>
-            <tr>
-              <td>1</td>
-              <td>
-                <a href="/department/<%= department.dataValues.id %>">
-                  <%= department.dataValues.name %>
-                </a>
-              </td>
-              <td>
-                <%= department.dataValues.description %>
-              </td>
-              <td>22</td>
-              <td>
-
-                <button type="button" id="edit-btn" class="edit-btn">
-                  <i class="fas fa-edit"></i>
-                </button>
-
-                <i class="fas fa-trash-alt"></i>
-              </td>
-            </tr>
-            <% }) %>
+          <% let i=1; %>
+            <% departments.forEach(function(department) { %>
+              <tr>
+                <td>
+                  <%= i++ %>
+                </td>
+                <td>
+                  <%= department.name %>
+                </td>
+                <td>
+                  <%= department.description %>
+                </td>
+                <td>22</td>
+                <td>
+                  <a href="/department/<%= department.id %>">
+                  <button type="button" class="btn btn-outline-warning">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </a>
+                  <button id="edit-btn" class="btn btn-outline-primary mx-3" data-bs-toggle="modal"
+                    data-bs-target="#updateModal">
+                    <i class="fas fa-edit"></i>
+                    <input type="hidden" value="<%= department.id %>">
+                  </button>
+                  <form action="/department" method="delete" class="d-inline-block">
+                    <input type="hidden" name="id" value="<%= department.id %>">
+                    <button class="delete-btn btn btn-outline-danger" type="submit">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
         </tbody>
       </table>
     </div>
