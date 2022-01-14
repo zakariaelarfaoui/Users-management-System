@@ -1,4 +1,4 @@
-const { sequelize, Department } = require("../models");
+const { Department } = require("../models");
 
 const departmentController = {};
 
@@ -6,9 +6,9 @@ departmentController.getAll = async (req, res) => {
   try {
     const departments = await Department.findAll();
     res.render("departments/index", { departments });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: err.message });
   }
 };
 
@@ -16,48 +16,49 @@ departmentController.getOne = async (req, res) => {
   const id = req.params.id;
   try {
     const department = await Department.findOne({ where: { id } });
-    res.render('departments/department', { department})
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
+    res.render("departments/details", { department });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: err.message });
   }
 };
 
 departmentController.delete = async (req, res) => {
   const id = req.params.id;
-  try {
-    const department = await Department.findOne({ where: { id } });
-    await department.destroy();
-    return res.json({ message: "row deleted successfully" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-  }
+  Department.destroy({ where: { id } })
+    .then((result) => {
+      res.redirect("/departments");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err: err.message });
+    });
 };
 
 departmentController.update = async (req, res) => {
   const id = req.params.id;
-  const { name, description } = req.body;
-  try {
-    const department = await Department.findOne({ where: { id } });
-    department.name = name;
-    department.description = description;
-    await department.save();
-    res.redirect("/departments");
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-  }
+  const { newName, newDescription } = req.body;
+  Department.findOne({ where: { id } })
+    .then((result) => {
+      result.name = newName;
+      result.description = newDescription;
+      result.save();
+      res.redirect("/departments");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err: err.message });
+    });
 };
 
 departmentController.create = async (req, res) => {
-  const department = await new Department(req.body)
+  const department = await new Department(req.body);
   department.save().then((result) => {
-    res.redirect("/departments").catch((error) => {
-      console.log(error);
-      res.status(500).json({ error: error.message });
+    res.redirect("/departments").catch((err) => {
+      console.log(err);
+      res.status(500).json({ err: err.message });
     });
-  })
+  });
 };
 
 module.exports = {
