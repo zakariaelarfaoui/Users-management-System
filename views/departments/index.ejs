@@ -50,18 +50,17 @@
               <h5 class="modal-title" id="updateModalLabel">UPDATE Department</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/department" method="PUT">
+            <form class="userUpdateModal"  method="PUT">
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
-                  <input type="text" name="updated-name" class="form-control" id="updated-name" placeholder="Name" />
+                  <input type="text" name="newName" class="form-control" id="updated-name" placeholder="Name" />
                 </div>
                 <div class="mb-3">
                   <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                  <textarea class="form-control" name="updated-description" id="updated-description"
+                  <textarea class="form-control" name="newDescription" id="updated-description"
                     rows="3"></textarea>
                 </div>
-                <input type="hidden" name="id" id="updated-id">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
