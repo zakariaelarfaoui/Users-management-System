@@ -24,7 +24,7 @@ usersController.getAll = async (req, res) => {
 
 usersController.getOne = async (req, res) => {
   const id = req.params.id;
-  User.findOne({ where: { id } })
+  await User.findOne({ where: { id } })
     .then((result) => {
       res.render("users/details", { user: result });
     })
@@ -35,27 +35,26 @@ usersController.getOne = async (req, res) => {
 
 usersController.delete = async (req, res) => {
   const id = req.params.id;
-  try {
-    const user = await User.findOne({ where: { id } });
-    await user.destroy();
-    return res.json({ message: "row deleted successfully" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-  }
+  await User.destroy({ where: { id } })
+    .then(() => {
+      res.redirect("/users");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404);
+    });
 };
 
 usersController.update = async (req, res) => {
   const id = req.params.id;
-  // res.send(req.body)
-  const { newUserName, newUserEmail, newUserDepartment } = req.body;
-  User.findOne({ where: { id } })
+  const { newUserName, newUserEmail, newUserDepartment } = await req.body;
+  await User.findOne({ where: { id } })
     .then((result) => {
       result.name = newUserName;
       result.email = newUserEmail;
       result.departmentID = newUserDepartment;
       result.save();
-      res.redirect("/users");
+      res.redirect("back");
     })
     .catch((err) => {
       console.log(err);
