@@ -1,20 +1,54 @@
 <%- include('../layouts/header'); %>
 
-<main>
-  <div class="container">
-    <table class="">
-      <thead class="">
-        <tr>
-          <th scope="">Name</th>
-          <th scope="">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <td><%= department.dataValues.name %></td>
-          <td><%= department.dataValues.description %></td>
-      </tbody>
-    </table>
-  </div>
-</main>
+  <main>
+    <div class="container">
+      <a href="javascript:history.back()" class="btn btn-dark mb-2"><i class="fas fa-arrow-left me-2"></i>Back</a>
+      <h1 class="text-center display-4 fw-bold  mb-5">
+        <%= department.name %>
+      </h1>
+      <p class="text-center text-muted fs-5">
+        <%= department.description %>
+      </p>
+      <hr class="m-5">
+      <table class="">
+        <thead class="">
+          <tr>
+            <th scope="">#</th>
+            <th scope="">Name</th>
+            <th scope="">Email</th>
+            <th scope="">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="users">
+          <% users.forEach((user)=> { %>
+            <tr>
+              <td>1</td>
+              <td>
+                <%= user.name %>
+              </td>
+              <td>
+                <%= user.email %>
+              <td>
+                <a href="/user/<%= user.id %>">
+                  <button type="button" class="btn btn-outline-warning">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </a>
+                <button id="edit-btn" class="btn btn-outline-primary mx-3" data-bs-toggle="modal"
+                  data-bs-target="#updateModal">
+                  <i class="fas fa-edit"></i>
+                  <input type="hidden" value="<%= user.id %>">
+                </button>
+                <a href="/users/<%= user.id %>" class="btn btn-outline-danger">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </td>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </main>
 
-<%- include('../layouts/footer'); %>
+  <%- include('../layouts/footer'); %>

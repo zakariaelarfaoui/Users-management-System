@@ -1,4 +1,4 @@
-const { Department } = require("../models");
+const { Department, User } = require("../models");
 
 const departmentController = {};
 
@@ -16,7 +16,8 @@ departmentController.getOne = async (req, res) => {
   const id = req.params.id;
   try {
     const department = await Department.findOne({ where: { id } });
-    res.render("departments/details", { department });
+    const users = await User.findAll({ where: { departmentId: id} });
+    res.render("departments/details", { department, users });
   } catch (err) {
     console.log(err);
     res.status(500).json({ err: err.message });
