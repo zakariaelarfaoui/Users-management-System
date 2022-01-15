@@ -20,6 +20,12 @@
           </tr>
         </thead>
         <tbody id="users">
+          <% if (users.length == 0) { %>
+           <tr>
+             <td colspan="4">No Users</td>
+           </tr>
+          <% } %>
+  
           <% users.forEach((user)=> { %>
             <tr>
               <td>1</td>
