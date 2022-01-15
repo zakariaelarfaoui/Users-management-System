@@ -1,4 +1,4 @@
-const { Department } = require("../models");
+const { Department, User } = require("../models");
 
 const departmentController = {};
 
@@ -8,7 +8,7 @@ departmentController.getAll = async (req, res) => {
     res.render("departments/index", { departments });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err: err.message });
+    res.status(404).render("404")
   }
 };
 
@@ -16,10 +16,11 @@ departmentController.getOne = async (req, res) => {
   const id = req.params.id;
   try {
     const department = await Department.findOne({ where: { id } });
-    res.render("departments/details", { department });
+    const users = await User.findAll({ where: { departmentId: id} });
+    res.render("departments/details", { department, users });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err: err.message });
+    res.status(404).render("404")
   }
 };
 
@@ -31,7 +32,7 @@ departmentController.delete = async (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ err: err.message });
+      res.status(404).render("404")
     });
 };
 
@@ -47,7 +48,7 @@ departmentController.update = async (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ err: err.message });
+      res.status(404).render("404")
     });
 };
 
@@ -56,7 +57,7 @@ departmentController.create = async (req, res) => {
   department.save().then((result) => {
     res.redirect("/departments").catch((err) => {
       console.log(err);
-      res.status(500).json({ err: err.message });
+      res.status(404).render("404")
     });
   });
 };

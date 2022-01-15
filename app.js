@@ -21,6 +21,9 @@ app.use(
   express.static(__dirname + "/node_modules/@fortawesome/fontawesome-free/")
 );
 
+app.use((req, res) => {
+  res.status(404).render("404")
+})
 
 app.listen({ port: 8000 }, () => {
   console.log("server running on http://localhost:8000");

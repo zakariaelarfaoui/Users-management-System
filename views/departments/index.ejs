@@ -50,7 +50,7 @@
               <h5 class="modal-title" id="updateModalLabel">UPDATE Department</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="userUpdateModal"  method="PUT">
+            <form class="departmentUpdateModal">
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
@@ -96,7 +96,7 @@
                   <%= department.name %>
                 </td>
                 <td>
-                  <%= department.description %>
+                  <%= department.description.substring(0, 40) + "..." %>
                 </td>
                 <td>22</td>
                 <td>
@@ -110,12 +110,9 @@
                     <i class="fas fa-edit"></i>
                     <input type="hidden" value="<%= department.id %>">
                   </button>
-                  <form action="/department" method="delete" class="d-inline-block">
-                    <input type="hidden" name="id" value="<%= department.id %>">
-                    <button class="delete-btn btn btn-outline-danger" type="submit">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </form>
+                  <a href="/departments/<%= department.id %>" class="btn btn-outline-danger">
+                    <i class="fas fa-trash-alt"></i>
+                  </a>
                 </td>
               </tr>
               <% }) %>
