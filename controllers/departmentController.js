@@ -8,7 +8,7 @@ departmentController.getAll = async (req, res) => {
     res.render("departments/index", { departments });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err: err.message });
+    res.status(404).render("404")
   }
 };
 
@@ -20,7 +20,7 @@ departmentController.getOne = async (req, res) => {
     res.render("departments/details", { department, users });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err: err.message });
+    res.status(404).render("404")
   }
 };
 
@@ -32,7 +32,7 @@ departmentController.delete = async (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ err: err.message });
+      res.status(404).render("404")
     });
 };
 
@@ -48,7 +48,7 @@ departmentController.update = async (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ err: err.message });
+      res.status(404).render("404")
     });
 };
 
@@ -57,7 +57,7 @@ departmentController.create = async (req, res) => {
   department.save().then((result) => {
     res.redirect("/departments").catch((err) => {
       console.log(err);
-      res.status(500).json({ err: err.message });
+      res.status(404).render("404")
     });
   });
 };
