@@ -13,9 +13,10 @@ usersController.create = async (req, res) => {
 };
 
 usersController.getAll = async (req, res) => {
+  const departments = await Department.findAll();
   User.findAll()
     .then((result) => {
-      res.render("users/index", { users: result });
+      res.render("users/index", { users: result, departments });
     })
     .catch((error) => {
       console.log(error);
