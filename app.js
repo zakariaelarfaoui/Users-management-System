@@ -25,6 +25,9 @@ app.use((req, res) => {
   res.status(404).render("404")
 })
 
-app.listen({ port: 8000 }, () => {
+const port = process.env.PORT || 8000
+
+
+app.listen({ port }, () => {
   console.log("server running on http://localhost:8000");
 });
