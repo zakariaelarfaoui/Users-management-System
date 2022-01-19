@@ -2,6 +2,97 @@
 
   <main>
     <div class="container">
+            <!-- Modal -->
+            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Add User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form action="/users" method="POST">
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-12 mb-2">
+                          <label for="name" class="form-label">Name :</label>
+                          <input type="text" class="form-control" name="name" placeholder="Name">
+                        </div>
+                        <div class="col-md-12 mb-2">
+                          <label for="inputPassword4" class="form-label">Email :</label>
+                          <input type="email" class="form-control" name="email" placeholder="Email">
+                        </div>
+                        <div class="col-md-12 mb-2">
+                          <label for="inputPassword4" class="form-label">Password :</label>
+                          <input type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <div class="col-md-12 mb-2">
+                          <label for="department" class="form-label">Department :</label>
+                          <select name="departmentId" class="form-select">
+                            <% departments.forEach((department)=> { %>
+                              <option value="<%= department.id %> ">
+                                <%= department.name %>
+                              </option>
+                              <% }) %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                      </button>
+                      <button type="submit" class="btn btn-primary">
+                        Add
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+      <!-- UPDATE Modal -->
+      <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateModalLabel">Add User</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="userUpdateModal" action="/users" method="POST">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-12 mb-2">
+                    <label for="name" class="form-label">Name :</label>
+                    <input type="text" class="form-control" name="newUserName" placeholder="Name">
+                  </div>
+                  <div class="col-md-12 mb-2">
+                    <label for="inputPassword4" class="form-label">Email :</label>
+                    <input type="email" class="form-control" name="newUserEmail" placeholder="Email">
+                  </div>
+                  <div class="col-md-12 mb-2">
+                    <label for="department" class="form-label">Department :</label>
+                    <select name="newUserDepartment" class="form-select">
+                      <% departments.forEach((department)=> { %>
+                        <option value="<%= department.id %> ">
+                          <%= department.name %>
+                        </option>
+                        <% }) %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <a href="javascript:history.back()" class="btn btn-dark mb-2"><i class="fas fa-arrow-left me-2"></i>Back</a>
       <h1 class="text-center display-4 fw-bold  mb-5">
         <%= department.name %>
@@ -10,6 +101,11 @@
         <%= department.description %>
       </p>
       <hr class="m-5">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary float-end mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="fas fa-plus"></i>
+        Add User
+      </button>
       <table class="">
         <thead class="">
           <tr>
@@ -20,38 +116,33 @@
           </tr>
         </thead>
         <tbody id="users">
-          <% if (users.length == 0) { %>
-           <tr>
-             <td colspan="4">No Users</td>
-           </tr>
-          <% } %>
-  
-          <% users.forEach((user)=> { %>
+          <% if (users.length==0) { %>
             <tr>
-              <td>1</td>
-              <td>
-                <%= user.name %>
-              </td>
-              <td>
-                <%= user.email %>
-              <td>
-                <a href="/user/<%= user.id %>">
-                  <button type="button" class="btn btn-outline-warning">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                </a>
-                <button id="edit-btn" class="btn btn-outline-primary mx-3" data-bs-toggle="modal"
-                  data-bs-target="#updateModal">
-                  <i class="fas fa-edit"></i>
-                  <input type="hidden" value="<%= user.id %>">
-                </button>
-                <a href="/users/<%= user.id %>" class="btn btn-outline-danger">
-                  <i class="fas fa-trash-alt"></i>
-                </a>
-              </td>
-              </td>
+              <td colspan="4">No Users</td>
             </tr>
-            <% }) %>
+            <% } %>
+
+              <% users.forEach((user)=> { %>
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <%= user.name %>
+                  </td>
+                  <td>
+                    <%= user.email %>
+                  <td>
+                    <button id="edit-btn" class="btn btn-outline-primary mx-3" data-bs-toggle="modal"
+                      data-bs-target="#updateModal">
+                      <i class="fas fa-edit"></i>
+                      <input type="hidden" value="<%= user.id %>">
+                    </button>
+                    <a href="/users/<%= user.id %>" class="btn btn-outline-danger">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                  </td>
+                  </td>
+                </tr>
+                <% }) %>
         </tbody>
       </table>
     </div>
