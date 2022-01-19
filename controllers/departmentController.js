@@ -15,9 +15,10 @@ departmentController.getAll = async (req, res) => {
 departmentController.getOne = async (req, res) => {
   const id = req.params.id;
   try {
+    const departments = await Department.findAll()
     const department = await Department.findOne({ where: { id } });
     const users = await User.findAll({ where: { departmentId: id} });
-    res.render("departments/details", { department, users });
+    res.render("departments/details", { departments,department, users });
   } catch (err) {
     console.log(err);
     res.status(404).render("404")
@@ -54,12 +55,15 @@ departmentController.update = async (req, res) => {
 
 departmentController.create = async (req, res) => {
   const department = await new Department(req.body);
-  department.save().then((result) => {
-    res.redirect("/departments").catch((err) => {
+  department
+    .save()
+    .then((result) => {
+      res.redirect("/departments");
+    })
+    .catch((err) => {
       console.log(err);
-      res.status(404).render("404")
+      res.status(404).render("404");
     });
-  });
 };
 
 module.exports = {
